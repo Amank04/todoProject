@@ -12,7 +12,7 @@ function App() {
   const [Todo, setTodo] = useState("");
   const [Todos, setTodos] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
-  const [showFinished, setShowFinished] = useState(true);
+  const [showFinished, setShowFinished] = useState(false);
 
   useEffect(() => {
     let todoString = localStorage.getItem("todos");

@@ -2,8 +2,8 @@ import React from 'react'
 
 const footer = () => {
   return (
-    <div>
-        <footer class="bg-blue-700 text-white p-4 w-full static bottom-0 mt-3">
+    <div >
+        <footer class="bg-blue-700 text-white p-4 w-full relative mt-3">
     <div class="container mx-auto flex justify-between items-center">
         <div>
             <p class="text-sm mb-0 pb-0">Made with 💗 by</p>

@@ -38,7 +38,7 @@ function App() {
 
   const toggleFinished = () => {
     setShowFinished(!showFinished);
-  }
+  };
 
   const handleEdit = (e, yourDesiredId) => {
     console.log(yourDesiredId);
@@ -110,45 +110,55 @@ function App() {
 
   return (
     <>
-      <div className="h-[100vh] w-full">
+      <div className="w-full h-fit">
         <NavBar />
-        <div className="container bg-purple-200 py-2 px-3 m-5 rounded-xl mx-auto h-[70%] w-[60%] min-h-80 overflow-auto">
-          <h1 className="text-center my-3 text-3xl font-serif font-medium mt-0"> <span className="font-extrabold text-red-700 font-serif">e-Task: </span>A place for all your todos.</h1>
-          <h2 className="text-lg font-bold text-center">Add a Todo</h2>
-          <div className="addTodo sm:flex my-4 w-[70%] mx-auto justify-center ">
-            <input
-              type="text"
-              autoFocus
-              onChange={handleChange}
-              onKeyDown={handleKeyPress}
-              value={Todo}
-              className="w-full sm:w-[60%] h-8 rounded-sm border border-solid border-purple-400 focus:border-purple-950 focus:outline-none overflow-hidden "
-            />
-            <button
-              onClick={handleAdd}
-              disabled={Todo.length < 3}
-              className="bg-purple-800 hover:bg-purple-950 disabled:bg-purple-300 text-white w-full sm:w-fit sm:mx-5 p-2 py-1 rounded-md text-xs sm:text-sm font-bold"
-            >
-              Save
-            </button>
-          </div>
+        <div className="container bg-purple-200 py-2 px-3 m-5 rounded-xl mx-auto min-h-[75vh] h-fit w-[60%] min-h-80 overflow-auto">
+
+          <div className={`  ${Todos.length == 0 ? "my-[16%]" : ""}`}>
+            <h1 className="text-center my-3 text-3xl font-serif font-medium mt-0">
+              {" "}
+              <span className="font-extrabold text-red-700 font-serif">
+                e-Task:{" "}
+              </span>
+              A place for all your todos.
+            </h1>
+            <h2 className="text-lg font-bold text-center">Add a Todo</h2>
+            <div className="addTodo sm:flex my-4 w-[70%] mx-auto justify-center ">
+              <input
+                type="text"
+                autoFocus
+                onChange={handleChange}
+                onKeyDown={handleKeyPress}
+                value={Todo}
+                className="w-full sm:w-[60%] h-8 rounded-sm border border-solid border-purple-400 focus:border-purple-950 focus:outline-none overflow-hidden "
+              />
+              <button
+                onClick={handleAdd}
+                disabled={Todo.length < 3}
+                className="bg-purple-800 hover:bg-purple-950 disabled:bg-purple-300 text-white w-full sm:w-fit sm:mx-5 p-2 py-1 rounded-md text-xs sm:text-sm font-bold"
+              >
+                Save
+              </button>
+            </div>
 
             {/* Show finished todos or NOT. */}
             <div className="justify-center flex mx-auto">
-              <input type="checkbox" onChange={toggleFinished} checked={showFinished} className="mx-1"/>
+              <input
+                type="checkbox"
+                onChange={toggleFinished}
+                checked={showFinished}
+                className="mx-1"
+              />
               <div>Show finished items.</div>
             </div>
 
-
-          {showMessage && Todo.length < 3 && (
-            <p className="text-red-500 text-center">
-              Your todo must contain atleast <b>3</b> characters.
-            </p>
-          )}
-
-            <div className="bg-black h-[1px] w-[70%] mx-auto my-2">
-
-            </div>
+            {showMessage && Todo.length < 3 && (
+              <p className="text-red-500 text-center">
+                Your todo must contain atleast <b>3</b> characters.
+              </p>
+            )}
+          </div>
+          <div className="bg-black h-[1px] w-[70%] mx-auto my-2"></div>
 
           <h2 className="font-bold text-lg text-center mt-5">Your Todos</h2>
 
@@ -160,46 +170,48 @@ function App() {
           <div className="todos lg:w-[70%]  mx-auto justify-center">
             {Todos.map((item) => {
               // console.log("I am rendering");
-              return (showFinished || !item.isCompleted) && (
-                <div
-                  key={item.id}
-                  className="todo w-full justify-between my-3 flex"
-                >
-                  <div className="flex">
-                    <input
-                      type="checkbox"
-                      name={item.id}
-                      onChange={handleCheckbox}
-                      checked={item.isCompleted}
-                      className="mx-2"
-                    />
-                    <div
-                      className={`flex font-serif sm:text-2xl  ${
-                        item.isCompleted ? "line-through" : ""
-                      }`}
-                    >
-                      {item.Todo}
+              return (
+                (showFinished || !item.isCompleted) && (
+                  <div
+                    key={item.id}
+                    className="todo w-full justify-between my-3 flex"
+                  >
+                    <div className="flex">
+                      <input
+                        type="checkbox"
+                        name={item.id}
+                        onChange={handleCheckbox}
+                        checked={item.isCompleted}
+                        className="mx-2"
+                      />
+                      <div
+                        className={`flex font-serif sm:text-2xl  ${
+                          item.isCompleted ? "line-through" : ""
+                        }`}
+                      >
+                        {item.Todo}
+                      </div>
+                    </div>
+                    <div className="buttons mx-5">
+                      <button
+                        onClick={(e) => {
+                          handleEdit(e, item.id);
+                        }}
+                        className="bg-purple-800 hover:bg-purple-950 text-white mx-1 sm:mx-2 p-1 sm:p-2 rounded-md"
+                      >
+                        <MdOutlineEditNote />
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          handleDelete(e, item.id);
+                        }}
+                        className="bg-purple-800 hover:bg-purple-950 text-white mx-1 sm:mx-2 my-1 p-1 sm:p-2 rounded-md"
+                      >
+                        <RiDeleteBin5Line />
+                      </button>
                     </div>
                   </div>
-                  <div className="buttons mx-5">
-                    <button
-                      onClick={(e) => {
-                        handleEdit(e, item.id);
-                      }}
-                      className="bg-purple-800 hover:bg-purple-950 text-white mx-1 sm:mx-2 p-1 sm:p-2 rounded-md"
-                    >
-                      <MdOutlineEditNote />
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        handleDelete(e, item.id);
-                      }}
-                      className="bg-purple-800 hover:bg-purple-950 text-white mx-1 sm:mx-2 my-1 p-1 sm:p-2 rounded-md"
-                    >
-                      <RiDeleteBin5Line />
-                    </button>
-                  </div>
-                </div>
+                )
               );
             })}
           </div>
